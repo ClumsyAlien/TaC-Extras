@@ -1,0 +1,14 @@
+{
+  "item.fire_30-30": {
+    "subtitle": "subtitle.tac_extra.fire_30-30fire",
+    "sounds": [
+      { "name": "tac_extra:item/30-30_fire" }
+    ]
+  },
+  "item.fire_30-30s": {
+    "subtitle": "subtitle.tac_extra.fire_30-30fires",
+    "sounds": [
+      { "name": "tac_extra:item/30-30_fires" }
+    ]
+  }
+}

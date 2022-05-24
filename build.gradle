@@ -1,0 +1,94 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+
+version = '0.2-1.16.4'
+group = 'timeless_and_classic_extra'
+archivesBaseName = 'timeless_and_classic_extra'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+minecraft {
+    mappings channel: 'snapshot', version: '20201028-1.16.3'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property "mixin.env.disableRefMap", "true"
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            arg '-mixin.config=tac_extra.mixins.json'
+
+            mods {
+                timeless_and_classic {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            arg '-mixin.config=tac_extra.mixins.json'
+
+            mods {
+                timeless_and_classic {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'tac_extra', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            arg '-mixin.config=tac_extra.mixins.json'
+
+            mods {
+                timeless_and_classic {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://www.cursemaven.com" }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.22'
+    compile fg.deobf('curse.maven:obfuscate-289380:3169370')
+    compile fg.deobf('curse.maven:controllable-317269:3196545')
+    compile fg.deobf('curse.maven:timeless-and-classics-491264:3802219')
+    compile fg.deobf('curse.maven:configured-457570:3244520')
+ }
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "tac_extra Addon",
+                "Specification-Vendor"    : "ClumsyAlien",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : "tac_extra Addon",
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "ClumsyAlien",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "tac_extra.mixins.json"
+        ])
+    }
+}

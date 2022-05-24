@@ -1,0 +1,152 @@
+{
+  "general": {
+
+    "boltAction": false, // Will this weapon kick the player out of ADS after each shot? Only done by default when an OPTIC is attached
+
+    "auto": true, // Can this weapon shoot in full auto?
+
+    "rate": 2, // Ticks inbetween shots
+
+    "rateSelector": [0,1,2], // Fire modes, 0 = safe, 1 = semi, 2 = auto
+
+    "gripType": "tac:two_handed_ak47", // How will the player render when holding the weapon, custom versions can be made
+
+    "recoilAngle": 3.175, // The recoil, pointing the muzzle along the vertical axis
+
+    "horizontalRecoilAngle": 1.625, // The recoil, pointing the muzzle along the horizontal axis, the horizontal direction is randomized per shot
+
+    "recoilKick": 1.2135, // The recoil back into the shoulder
+
+    "recoilAdsReduction": 0.275, // Percentage of recoil reduction when ADS'ed
+
+    "weaponRecoilDuration": 0.975, // 1.0 - 0.975 = 0.025, this calculation is what is used to calculate the time the weapon requires to snap up to maximum recoil pos, before rest to near center
+
+    "cameraRecoilModifier": 1.225, // (CameraRecoil / 1.225), the lower the input value, the MORE camera recoil that is generated, compared to weapon visual recoil
+
+    "recoilDuration": 0.225, // 0.225 = the time the camera recoil, jumps up, lower = faster and snappier, including reset timing
+
+    "alwaysSpread": true, // Does this weapon continue inaccuracy?
+
+    "spread": 4.225, // Base accuracy (details coming soon as remastering begins)
+
+    "weightKilo": 3.0 // The weapon of the weapon in Kilograms
+
+  },
+  "reloads": {
+
+    "magFed": true, // Does the gun reload via a magazine, or loading ammunition piece by piece in some manner?
+
+    "maxAmmo": 30, // The maximum ammunition the weapon holds by default
+
+    "reloadMagTimer": 45, // How much standard time will the weapon take to reload a magazine
+
+    "additionalReloadEmptyMagTimer": 20, // How much more time would the weapon take to reload, if the magazine is empty?
+
+    "maxAdditionalAmmoPerOC": [15, 30, 70], // Additional added by each level of Overcapacity, this can go as far as you wish, TaC only models the first 3, survival obtainable levels
+
+    "preReloadPauseTicks": 7 // How much time is ADDED, to the overall reload timer, this pre timer goes first, once passed you won't be able to shoot your weapon mid reload,
+        // This practcally models the weapons magazine being out of the gun, unloading everything but the chamber if applicable (WIP, 0.2 doesn't contain an impl, please populate however)
+  },
+  "projectile": {
+
+    "item": "tac:nato_556_bullet", // item to use as ammunition
+
+    "visible": true, // Is the bullet model visually flying through the air?
+
+    "damage": 6,
+
+    "size": 0.1, // Size of the projectile hitbox
+
+    "speed": 34.5, // ~Blocks per tick
+
+    "life": 6, // Life time of the bullet
+
+    "ricochet": true // Can this bounce off harder surfaces, such as rock or ice?
+
+  },
+  "sounds": {
+    // Sounds must be implemented in the sounds.json file, and registered in the SoundRegistry.Java file
+    "fire": "tac:item.fire_m16",
+    "reload": "tac:item.pistol.reload",
+    "cock": "tac:item.pistol.cock",
+    "silencedFire": "tac:item.fire_m16s"
+  },
+  "display": {
+    "flash": { // MUZZLE FLASH, continue down to the module explanation just down below
+      "yOffset": 9.35,
+      "zOffset": -11.55,
+      "size": 1.10
+    },
+
+    // All hyper optional, was made more for fun and to keep some guns looking cleaner, it works but is rather a pain to ensure perfection, you can leave blank for your impl and run off defaults!
+
+    "hipfireScale": 0.75, // How large is the dynamic hipfire reticle by default?
+
+    "hipfireMoveScale": 0.55, // How large does the radius grow under movement?
+
+    "hipfireRecoilScale": 0.91, // How large does the radius grow under recoil?
+
+    "weaponType": 0 // What weapon type is this, scroll through existing TaC weapons such as Pistols, LMG's, SMG's, RIFLES, ASSAULT RIFLES, for all of the weapon icon types
+  },
+  ----------------------------------------------------------
+  // MODULES! This is where all attachments/extras are handled, there is not too much to explain for every single json value so I am going to give a rundown what each supports and why
+
+  "zoom": [{
+          "fovModifier": 0.8, // 1.0-0.8 = ~20% zoom on ads using FOV
+          "yOffset": 12.675, // How high is the iron sight position for the model
+          "zOffset": -4.75, // How far should the model be pushed out when ads'ed
+          "xOffset": 0, // Not used yet for iron sights, used to move the model left and right on ads
+        }],
+
+
+  "attachments" // SCOPES REQUIRE PROPER USAGE OF ALL POSITIONING VALUES FOR "scope" "oldScope" "pistolScope", AS WE RENDER THE BASE MODEL, YOU CANNOT OVERRIDE A SCOPE RENDER!!!
+
+        "yOffset": -100829.84, // How high to render the attachment IF DEFAULT, for TaC we usually render the default attachment extremely far away out of render cycle
+            // We don't plan to implement a cut render cycle at this point, since BARRELS utilize the Y and Z offset as helper positioner's, for the muzzle flash when applied
+            // More may be used as well that requires the yOffset to the existing at minimal, details would be provided if I ever do IMPROVE this system.
+
+        "zOffset": -11.55, // How far forward or back for an attachment to render, once again, is used currently and most noticbly on BARRELS for muzzle flash positioning.
+
+        "xOffset": 0, // How far to either side to render the attachment, only seen in TaC for rendering the SMLE III* scope system
+
+        "scale": 1.00 // The size of the attachment, since Muzzle flash uses the modules system, it applies there as well
+
+    PISTOL SCOPE ODDITIES // Extras the pistolScope attachment slot contains
+        "doRenderMount": true, // Does the pistolScope mount render underneath?
+        "doOnSlideMovement": true // Does the pistolScope move along side the slide model? Your "pistol_animation" class MUST contain a piece of code to keep weapon global tracking of slide movement
+  ----------------------------------------------------------
+  "modules": {
+    "zoom": [{
+        "fovModifier": 0.8,
+        "yOffset": 12.675,
+        "zOffset": -4.75
+      }],
+    "attachments": {
+      "barrel": {
+        "yOffset": -100829.84,
+        "zOffset": -11.55,
+        "scale": 1.00
+      },
+      "scope": {
+        "yOffset": 10.25,
+        "zOffset": 7.4,
+        "scale": 1.00
+      },
+      "stock": {
+        "yOffset": 7.75,
+        "zOffset": -22.05,
+        "scale": 0.00
+      },
+      "underBarrel": {
+        "yOffset": 7.799,
+        "zOffset": -2.35,
+        "scale": 0.00
+      },
+      "sideRail": {
+        "yOffset": 7.799,
+        "zOffset": -2.35,
+        "scale": 0.00
+      }
+    }
+  }
+}

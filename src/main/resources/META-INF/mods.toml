@@ -1,0 +1,49 @@
+#Stuff to load
+modLoader="javafml"
+loaderVersion="[32,)"
+license="GPL3"
+
+#Our Mod Info
+[[mods]]
+modId="tac_extra"
+version="0.3"
+displayName="Timeless and Classic Mod Addon"
+updateJSONURL="https://raw.githubusercontent.com/"
+displayURL="https://raw.githubusercontent.com/"
+authors="ClumsyAlien, NekoCrane"
+credits="MrCrayfish, ClumsyAlien, NekoCrane"
+description='The Timeless and Classic addon introduces a multitude of older weapons to MrCrayfishs Gun Mod'
+
+#Dependencies are an integral part of this
+#We need to add forge and minecraft to run the game
+#However, we also need to require the Gun mod, as well as Obfuscate
+#We need the Gun Mod so we can register guns and other related stuff
+#We need Obfuscate because it is a required dependency of the Gun Mod
+
+#The fields marked with mandatory need to be present when loading the game
+#They are present in the IDE as we added them to our build.gradle file
+#Something like controllable isn't needed, however, we still add it as the mod supports that and adds features around it.
+[[dependencies.tac_extra]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tac_extra]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3,1.16.4,1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tac_extra]]
+    modId="tac"
+    mandatory=true
+    versionRange="[0.1.4,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tac_extra]]
+    modId="obfuscate"
+    mandatory=true
+    versionRange="[0.6.0,)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "tac_extra:block/9mm_box_block"
+    },
+    "facing=east": {
+      "model": "tac_extra:block/9mm_box_block",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "tac_extra:block/9mm_box_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tac_extra:block/9mm_box_block",
+      "y": 270
+    }
+  }
+}
