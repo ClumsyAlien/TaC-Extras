@@ -75,7 +75,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.22'
     compile fg.deobf('curse.maven:obfuscate-289380:3169370')
     compile fg.deobf('curse.maven:controllable-317269:3196545')
-    compile fg.deobf('curse.maven:timeless-and-classics-491264:3802219')
+    compile fg.deobf('curse.maven:timeless-and-classics-491264:3854371')
     compile fg.deobf('curse.maven:configured-457570:3244520')
  }
 jar {
